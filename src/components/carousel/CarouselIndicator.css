@@ -1,0 +1,31 @@
+.carousel-indicator-container {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 5%;
+    min-height: 23px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.carousel-indicator {
+    background-color: rgb(235, 235, 235);
+    width: 2rem;
+    height: 3px;
+    opacity: 0.5;
+    margin: 0px 5px;
+    transition-property: opacity background-color;
+    transition-duration: 700ms;
+    cursor: pointer;
+    box-sizing: content-box;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    background-clip: padding-box;
+}
+
+.carousel-indicator.active {
+    opacity: 1;
+}
