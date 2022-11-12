@@ -207,7 +207,7 @@ class Popover {
             const popoverRect = createPopoverRect({targetRect, elementRect, mainAxis, crossAxis});
             popoverRects.push(popoverRect);
 
-            //ajusting axis
+            //ajusting
             for(let {name, options} of this.#modifiers){
                 if(typeof Modifiers[name].modify == "function"){
                     Modifiers[name].modify({
