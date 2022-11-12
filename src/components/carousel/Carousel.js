@@ -23,6 +23,8 @@ const Carousel = forwardRef((
         interval = 3500, 
         autoplayOffset = 1,
         children,
+        onSwitchStart = () => {},
+        onSwitchEnd = () => {},
         ...props
     }, 
     ref
@@ -49,6 +51,13 @@ const Carousel = forwardRef((
 
     }, [animation]);
 
+    useEffect(() => {
+        onSwitchStart(next);
+    }, [next, onSwitchStart]);
+
+    useEffect(() => {
+        onSwitchEnd(previous);
+    }, [previous, onSwitchEnd]);
 
     useEffect(() => {
 
@@ -167,7 +176,11 @@ const Carousel = forwardRef((
         }
 
         return (
-            <div key={index} className={classNameList.join(" ")} onAnimationEnd={() => setPrevious(next)}>
+            <div 
+                key={index} 
+                className={classNameList.join(" ")} 
+                onAnimationEnd={(e) => e.target === e.currentTarget && setPrevious(next)}
+            >
                 {item}
             </div>
         );

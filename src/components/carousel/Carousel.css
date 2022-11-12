@@ -85,12 +85,6 @@
 .carousel {
     position: relative;
     overflow: hidden;
-    /* test*/
-    margin: 0px auto;
-    text-align: center;
-    font-size: xx-large;
-    font-family: sans-serif;
-    color: white;
 }
 
 .carousel-item {
