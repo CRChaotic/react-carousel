@@ -24,11 +24,13 @@ const CarouselIndicator = forwardRef((props, ref) =>{
         indicators.push(indicator);
     }
 
+    let className = props.className ? CLASS_NAME_INDICATOR_CONTAINER + " " + props.className : CLASS_NAME_INDICATOR_CONTAINER;
+
     return (
         <div 
             {...props}
             ref={ref} 
-            className={[CLASS_NAME_INDICATOR_CONTAINER, props.className].join(" ")}
+            className={className}
         >
             {indicators}
         </div>

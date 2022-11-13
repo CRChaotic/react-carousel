@@ -23,8 +23,8 @@ const Carousel = forwardRef((
         interval = 3500, 
         autoplayOffset = 1,
         children,
-        onSwitchStart = () => {},
-        onSwitchEnd = () => {},
+        onSwitchStart,
+        onSwitchEnd,
         ...props
     }, 
     ref
@@ -52,10 +52,16 @@ const Carousel = forwardRef((
     }, [animation]);
 
     useEffect(() => {
+        if(typeof onSwitchStart !== "function"){
+            return;
+        }
         onSwitchStart(next);
     }, [next, onSwitchStart]);
 
     useEffect(() => {
+        if(typeof onSwitchEnd !== "function"){
+            return;
+        }
         onSwitchEnd(previous);
     }, [previous, onSwitchEnd]);
 
