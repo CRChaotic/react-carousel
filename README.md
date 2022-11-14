@@ -10,7 +10,7 @@ const items = [
 ];
 ```
 - Make sure carousel having size(e.g width:800px, height:500px)
-- Animation could be one of slide, fade or just empty string or does not provide prop aniamtion which means no animation 
+- Animation could be one of slide, fade or just empty string or does not provide prop animation which means no animation 
 ```
 <Carousel 
   items={items} 
