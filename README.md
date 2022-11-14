@@ -8,10 +8,8 @@ const items = [
   <div style={{backgroundColor:"blue", width:"100%", height:"100%"}}>item2</div>,
   <div style={{backgroundColor:"pink", width:"100%", height:"100%"}}>item3</div>,
 ];
-```
-- Make sure carousel having size(e.g width:800px, height:500px)
-- Animation could be one of slide, fade or just empty string or does not provide prop aniamtion which means no animation 
-```
+//Make sure carousel having size(e.g width:800px, height:500px)
+//Animation could be one of slide, fade or just empty string or does not provide prop animation which means no animation 
 <Carousel 
   items={items} 
   interval={3500} 
