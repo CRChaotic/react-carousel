@@ -21,7 +21,6 @@ function useCollapsible({show = false, axis = "vertical", duration = 300}){
         }
 
         setSize(size);
-        console.log("update collapsible");
 
     },[show, axis]);
 
