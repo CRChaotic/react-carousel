@@ -1,7 +1,7 @@
 import { forwardRef, useContext } from "react";
 import { CarouselContext } from "./Carousel";
 
-import "./CarouselButton.css";
+import "./styles/CarouselButton.css";
 
 const CLASS_NAME_BTN = "carousel-btn";
 

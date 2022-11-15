@@ -1,6 +1,6 @@
 import { createContext, forwardRef, useCallback, useEffect, useRef, useState } from "react";
 
-import "./Carousel.css";
+import "./styles/Carousel.css";
 
 const CLASS_NAME_CAROUSEL = "carousel";
 const CLASS_NAME_ITEM = "carousel-item";

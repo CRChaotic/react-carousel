@@ -1,7 +1,7 @@
 import { forwardRef, useContext } from "react";
 import { CarouselContext } from "./Carousel";
 
-import "./CarouselIndicator.css";
+import "./styles/CarouselIndicator.css";
 
 const CLASS_NAME_INDICATOR_CONTAINER = "carousel-indicator-container";
 const CLASS_NAME_INDICATOR = "carousel-indicator";
