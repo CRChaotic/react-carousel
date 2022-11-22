@@ -85,7 +85,7 @@ const Carousel = forwardRef<HTMLDivElement, CarouselProps>(({
 
     useEffect(() => {
 
-        if(!(next === prev && itemsLength > 0 && isEnabledAutoplay && !isPaused && autoplayOffset !== 0 && interval >= 0)){
+        if(next !== prev || itemsLength === 0 || !isEnabledAutoplay || isPaused || autoplayOffset === 0 || interval < 0){
             return
         }
 
@@ -123,7 +123,7 @@ const Carousel = forwardRef<HTMLDivElement, CarouselProps>(({
 
     const handlePointerEnter = (e:React.PointerEvent<HTMLDivElement>) => {
         if(isEnabledAutoplay){
-            setIsPaused(false);
+            setIsPaused(true);
         }
 
         if(props.onPointerEnter){

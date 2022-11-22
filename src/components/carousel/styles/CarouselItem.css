@@ -15,12 +15,12 @@
 
 .carousel-item.prev.forward.slide{
     animation-name: prev-forward-slide;
-    animation-duration: 800ms;
+    animation-duration: 700ms;
 }
 
 .carousel-item.next.forward.slide{
     animation-name: next-forward-slide;
-    animation-duration: 800ms;
+    animation-duration: 700ms;
 }
 
 @keyframes prev-forward-slide {
@@ -35,12 +35,12 @@
 
 .carousel-item.prev.backward.slide{
     animation-name: prev-backward-slide;
-    animation-duration: 800ms;
+    animation-duration: 700ms;
 }
 
 .carousel-item.next.backward.slide{
     animation-name: next-backward-slide;
-    animation-duration: 800ms;
+    animation-duration: 700ms;
 }
 
 @keyframes prev-backward-slide {
