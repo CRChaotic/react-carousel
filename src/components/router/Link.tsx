@@ -1,10 +1,8 @@
 import React, { forwardRef, useContext } from "react";
 import { RouterContext } from "./Router";
 
-export interface LinkProps{
+export interface LinkProps extends React.ComponentPropsWithRef<"a">{
     href:string;
-    onClick?:(event: React.PointerEvent<HTMLAnchorElement>) => void;
-    children?:React.ReactNode;
 }
 
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(({children, onClick, ...props}, ref) => {
