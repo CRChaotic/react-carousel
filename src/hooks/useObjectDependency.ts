@@ -24,7 +24,7 @@ function compare(valueA:any, valueB:any) {
 }
 
 
-function useObjectDependency(objectDependency:object){
+function useObjectDependency<T>(objectDependency:T):T{
 
     const dependecyRef = useRef(objectDependency);
 

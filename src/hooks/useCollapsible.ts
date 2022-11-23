@@ -6,9 +6,13 @@ interface useCollapsibleProps{
     duration?:number;
 }
 
-function useCollapsible({show = false, axis = "vertical", duration = 300}:useCollapsibleProps){
+function useCollapsible<T extends HTMLElement>({
+    show = false, 
+    axis = "vertical", 
+    duration = 300
+}:useCollapsibleProps):{ref:React.RefObject<T>; style:React.CSSProperties} {
 
-    const ref = useRef<Element>(null);
+    const ref = useRef<T>(null);
     const [size, setSize] = useState(0);
 
     useEffect(() => {
@@ -47,7 +51,7 @@ function useCollapsible({show = false, axis = "vertical", duration = 300}:useCol
             padding:0,
             border:"none"
         }
-    }
+    };
 }
 
 export default useCollapsible;
