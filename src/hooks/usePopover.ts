@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import Popover, { ModifierConfig, Placements, RootBoundary } from "../libs/popover/Popover";
+import { computeStyles } from "../libs/popover/modifiers/computeStyles";
+import { offset } from "../libs/popover/modifiers/offset";
+import Popover, { ModifierConfig, Placement, RootBoundary } from "../libs/popover/Popover";
 import { RectElement } from "../libs/popover/utils/RectElement";
 
 import useObjectDependency from "./useObjectDependency";
 
 interface UsePopoverProps{
     modifiers?:ModifierConfig[];
-    placements?:Placements;
+    placements?:Placement[];
     rootBoundary?:RootBoundary;
     boundaries?: RectElement[];
 }
@@ -15,9 +17,9 @@ function usePopover(
     element:HTMLElement|null, 
     target:RectElement|null, 
     {
-        modifiers = [], 
-        placements = {bottom:"middle", top:"middle"}, 
-        rootBoundary = "viewport",
+        modifiers = [{modifier:computeStyles}, {modifier:offset, options:{offset:[7, 0]}}], 
+        placements, 
+        rootBoundary,
         boundaries,
     }:UsePopoverProps = {}
 ){
@@ -39,18 +41,26 @@ function usePopover(
             }
         };
 
-        for(let config of currentModifiers){
+        for(let config of currentModifiers??[]){
             popoverState[config.modifier.name]= {};
         }
 
         if(element && target && updateTime){
+
             let popover:Popover|null = new Popover(element, target);
-            popover.placements = currentPlacements;
-            popover.modifiers = currentModifiers;
+
+            if(currentPlacements){
+                popover.placements = currentPlacements;
+            }
+            if(currentModifiers){
+                popover.modifiers = currentModifiers;
+            }
             if(boundaries){
                 popover.boundaries = boundaries;
             }
-            popover.rootBoundary = rootBoundary;
+            if(rootBoundary){
+                popover.rootBoundary = rootBoundary;
+            }
             console.warn("update");
             const {popoverRect, modifiersData} = popover.update();
             popover = null;

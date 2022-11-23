@@ -5,17 +5,16 @@ import { getDocumentRect } from "./utils/getDocumentRect.js";
 import { getOverlapRect } from "./utils/getOverlap.js"
 import { getViewportRect } from "./utils/getViewportRect.js";
 import { getVirtualElement } from "./utils/getVirtualElement.js";
-import { CrossAxis, MainAxis, PopoverRect } from "./utils/PopoverRect.js";
+import { PopoverRect } from "./utils/PopoverRect.js";
 import { RectElement } from "./utils/RectElement.js";
 
 import "./styles/Popover.css";
 
-export type Placements = {
-    top?:CrossAxis;
-    bottom?:CrossAxis;
-    left?:CrossAxis;
-    right?:CrossAxis;
-};
+export type Placement = {
+    mainAxis: "bottom"|"top"|"right"|"left";
+    crossAxis: "start"|"middle"|"end";
+}
+
 export type RootBoundary = "viewport"|"document"
 export type ModifierConfig = {
     modifier:Modifier;
@@ -30,16 +29,21 @@ class Popover {
 
     element:HTMLElement;
     target:RectElement;
-    placements:Placements;
+    placements:Placement[];
     modifiers: ModifierConfig[];
     boundaries: RectElement[];
     rootBoundary: RootBoundary;
-    private modifiersData: ModifiersData;
+    modifiersData: ModifiersData;
 
     constructor(element:HTMLElement, target:RectElement){
         this.element = element;
         this.target = target;
-        this.placements = {bottom:"middle", top:"middle", right:"middle", left:"middle"};
+        this.placements = [
+            {mainAxis:"bottom", crossAxis:"middle"},
+            {mainAxis:"top", crossAxis:"middle"},
+            {mainAxis:"right", crossAxis:"middle"},
+            {mainAxis:"left", crossAxis:"middle"},
+        ];
         this.modifiers = [];
         this.boundaries = [];
         this.rootBoundary = "viewport";
@@ -116,9 +120,8 @@ class Popover {
 
         const popoverRects = [];
 
-        for(let placement of Object.entries(this.placements)){
+        for(let {mainAxis, crossAxis} of this.placements){
             
-            let [mainAxis, crossAxis] = placement as [MainAxis, CrossAxis];
             const popoverRect = createPopoverRect({targetRect, elementRect, mainAxis, crossAxis});
             popoverRects.push(popoverRect);
 
