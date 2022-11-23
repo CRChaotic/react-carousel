@@ -1,5 +1,5 @@
-import { getPopoverTranslations } from "./getPopoverTranslations.js";
-import { MainAxis, CrossAxis, PopoverRect } from "./PopoverRect.js";
+import { getPopoverTranslations } from "./getPopoverTranslations";
+import { MainAxis, CrossAxis, PopoverRect } from "./PopoverRect";
 
 type Props = {
     targetRect:DOMRect;
@@ -66,5 +66,8 @@ export const createPopoverRect = ({targetRect, elementRect, mainAxis, crossAxis}
         get crossAxis(){
             return crossAxis;
         },
+        toJSON() {
+            return JSON.stringify(this);
+        }
     };
 }

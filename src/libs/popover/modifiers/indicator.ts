@@ -1,7 +1,7 @@
-import { getPaddedRect } from "../utils/getPaddedRect.js";
-import { getOppsiteMainAxis } from "../utils/getOppsiteMainAxis.js";
-import { getPopoverTranslations } from "../utils/getPopoverTranslations.js";
-import { Modifier } from "./Modifier.js";
+import { getPaddedRect } from "../utils/getPaddedRect";
+import { getOppsiteMainAxis } from "../utils/getOppsiteMainAxis";
+import { getPopoverTranslations } from "../utils/getPopoverTranslations";
+import { Modifier } from "./Modifier";
 
 const SELECTOR_INDICATOR = "[data-popover-indicator]";
 const CROSS_AXIS_PLACEMENT = "middle";

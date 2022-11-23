@@ -1,7 +1,13 @@
 
 const regExp = /translate3d\(([^,]*),([^,]*),([^,]*?)\)/;
 
-export const translateElement = ({element, translateX, translateY}) => {
+type TranslateElement = {
+    element:HTMLElement;
+    translateX:number;
+    translateY:number;
+}
+
+export const translateElement = ({element, translateX, translateY}:TranslateElement) => {
     if(!regExp.test(element.style.transform)){
         element.style.transform = `translate3d(${translateX}px, ${translateY}px, 0px) ${element.style.transform}`;
     }else{

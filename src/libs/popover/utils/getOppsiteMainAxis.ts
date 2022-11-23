@@ -1,5 +1,7 @@
-export const getOppsiteMainAxis = (axis) => {
-    let oppsiteMainAxis = ""; 
+import { MainAxis } from "./PopoverRect";
+
+export const getOppsiteMainAxis = (axis:MainAxis):MainAxis => {
+    let oppsiteMainAxis= "" as MainAxis; 
     switch(axis){
         case "left":
             oppsiteMainAxis = "right";
@@ -14,7 +16,7 @@ export const getOppsiteMainAxis = (axis) => {
             oppsiteMainAxis = "top";
             break;
         default:
-            break;
+            throw new TypeError("axis expected one of top, bottom, left, right");
     }
     return oppsiteMainAxis;
 };

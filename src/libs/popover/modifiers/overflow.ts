@@ -1,15 +1,11 @@
-import { getPaddedRect } from "../utils/getPaddedRect.js";
-import { Modifier } from "./Modifier.js";
+import { getPaddedRect } from "../utils/getPaddedRect";
+import { Modifier } from "./Modifier";
 
 export const overflow:Modifier = {
     name:"overflow",
     modify({targetRect, boundaryRect, popoverRect, options = {}}) {
 
         let {margin = {left:0, right:0, top:0, bottom:0}} = options;
-
-        if(margin == null || (typeof margin !== "object" && typeof margin !== "number")){
-            throw new TypeError("Modifier<overflow>: margin expected an Object or a Number");
-        }
 
         if(typeof margin === "number"){
             margin = {

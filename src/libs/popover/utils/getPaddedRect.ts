@@ -1,4 +1,5 @@
-export const getPaddedRect = (rect, {left=0, right=0, top=0, bottom=0} = {}) => {
+
+export const getPaddedRect = (rect:DOMRect, {left=0, right=0, top=0, bottom=0} = {}) => {
     return DOMRect.fromRect({
         x: rect.x - left, 
         y: rect.y - top, 

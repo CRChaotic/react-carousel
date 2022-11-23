@@ -1,13 +1,21 @@
+import { CrossAxis, MainAxis } from "./PopoverRect";
 
-const convertMainAxis = (mainAxis) => {
+const convertMainAxis = (mainAxis:MainAxis) => {
     if(mainAxis === "top" || mainAxis === "bottom"){
         return "vertical";
-    }else if(mainAxis === "left" || mainAxis === "right"){
+    }else {
         return "horizontal";
     }
 };
 
-export const getPopoverTranslations = ({targetRect, elementRect, mainAxis, crossAxis}) => {
+type GetPopoverTranslations = {
+    targetRect:DOMRect;
+    elementRect:DOMRect;
+    mainAxis:MainAxis;
+    crossAxis:CrossAxis;
+}
+
+export const getPopoverTranslations = ({targetRect, elementRect, mainAxis, crossAxis}:GetPopoverTranslations) => {
 
     let translateX = 0;
     let translateY = 0;

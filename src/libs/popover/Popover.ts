@@ -1,12 +1,12 @@
-import { Modifier } from "./modifiers/Modifier.js";
+import { Modifier } from "./modifiers/Modifier";
 import { createPopoverRect } from "./utils/createPopoverRect";
-import { getClippedBoundaryRect } from "./utils/getClippedBoundaryRect.js";
-import { getDocumentRect } from "./utils/getDocumentRect.js";
-import { getOverlapRect } from "./utils/getOverlap.js"
-import { getViewportRect } from "./utils/getViewportRect.js";
-import { getVirtualElement } from "./utils/getVirtualElement.js";
-import { PopoverRect } from "./utils/PopoverRect.js";
-import { RectElement } from "./utils/RectElement.js";
+import { getClippedBoundaryRect } from "./utils/getClippedBoundaryRect";
+import { getDocumentRect } from "./utils/getDocumentRect";
+import { getOverlapRect } from "./utils/getOverlap"
+import { getViewportRect } from "./utils/getViewportRect";
+import { getVirtualRectElement } from "./utils/getVirtualRectElement";
+import { PopoverRect } from "./utils/PopoverRect";
+import { RectElement } from "./utils/RectElement";
 
 import "./styles/Popover.css";
 
@@ -73,17 +73,17 @@ class Popover {
         return this.rootBoundary;
     }
 
-    getRootBoundaryRect(){
+    getRootBoundaryRect():DOMRect{
         if(this.getRootBoundary() === "viewport"){
             return getViewportRect();
-        }else if(this.getRootBoundary() === "document"){
+        }else {
             return getDocumentRect();
         }
     }
 
     getBoundaryRect(){
-        const rootBoundaryElement = getVirtualElement(this.getRootBoundaryRect());
-        return getClippedBoundaryRect([rootBoundaryElement, ...this.boundaries]);
+        const rootBoundaryElement = getVirtualRectElement(this.getRootBoundaryRect());
+        return getClippedBoundaryRect([rootBoundaryElement, ...this.boundaries])!;
     }
 
     getTargetRect(){

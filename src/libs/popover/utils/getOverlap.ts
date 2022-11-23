@@ -1,5 +1,6 @@
 
-const calculateOverlapRect  = (aRect ,bRect) => {
+
+const calculateOverlapRect  = (aRect:DOMRect, bRect:DOMRect) => {
     let top = Math.max(aRect.top, bRect.top);
     let bottom = Math.min(aRect.bottom, bRect.bottom);
     let left = Math.max(aRect.left, bRect.left);
@@ -16,7 +17,7 @@ const calculateOverlapRect  = (aRect ,bRect) => {
 }
 
 //TO DO
-const getOverlapRect = (targetRect, ...rects) => {
+const getOverlapRect = (targetRect:DOMRect, ...rects:DOMRect[]) => {
 
     let overlapRect = targetRect;
     let overlapArea = targetRect.width*targetRect.height;

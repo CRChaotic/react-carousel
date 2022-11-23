@@ -1,6 +1,7 @@
 import { getOverlapRect } from "./getOverlap";
+import { RectElement } from "./RectElement";
 
-function getClippedBoundaryRect(boundaries){
+function getClippedBoundaryRect(boundaries:RectElement[]){
 
     let clippedBoundaryRect = null;
 

@@ -31,7 +31,6 @@ function getDocumentRect(){
         console.warn("document watch out");
     }
 
-
     const viewportRect = getViewportRect();
     //fix when document is smaller than viewport
     documentRectMemo.width = Math.max(documentRectMemo.width, viewportRect.width);
