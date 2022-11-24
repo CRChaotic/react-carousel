@@ -1,0 +1,65 @@
+
+.accordion-header {
+    --accordion-header-transition-duration:200ms;
+}
+
+.accordion-header{
+    display: flex;
+    width: 100%;
+    border: none;
+    font: inherit;
+    text-align: inherit;
+    position: relative;
+    cursor: pointer;
+    padding: var(--accordion-item-padding);
+}
+
+.accordion-header, .light .accordion-header {
+    background-color: rgb(255, 255, 255);
+    color: rgb(20, 20, 20);
+}
+
+.accordion-header.active, .light .accordion-header.active{
+    background-color: rgb(240, 245, 240);
+}
+
+.dark .accordion-header{
+    background-color: rgb(50, 50, 60);
+    color: rgb(255, 255, 255);
+}
+
+.dark .accordion-header.active{
+    background-color: rgb(80, 80, 90);
+}
+
+.accordion-header::after {
+    display: inline-block;
+    content: "";
+    margin-left: auto;
+    min-width: 0.5rem;
+    min-height: 0.5rem;
+    border-width: 3px;
+    border-style: solid;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    transition-property: transform;
+    transition-duration: var(--accordion-header-transition-duration);
+}
+
+.accordion-header:not(.active)::after{
+    transform: rotate(45deg);
+}
+
+.accordion-header.active::after{
+    transform: rotate(-135deg);
+}
+
+.accordion-header::after, .light .accordion-header::after{
+    border-right-color: black;
+    border-bottom-color: black;
+}
+
+.dark .accordion-header::after{
+    border-right-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+}

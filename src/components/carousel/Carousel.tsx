@@ -14,7 +14,7 @@ const SLIDE_THRESHOLD = 0.3;
 type Animation = "slide"|"fade";
 type Direction = "forward"|"backward";
 
-export interface CarouselProps extends React.ComponentPropsWithRef<"div">{
+export interface CarouselProps extends React.ComponentPropsWithoutRef<"div">{
     items:React.ReactNode[];
     animation?:Animation; 
     isEnabledAutoplay?:boolean; 

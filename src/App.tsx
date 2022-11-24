@@ -1,3 +1,4 @@
+import { AccordionTest } from "./components/accordion/AccordionTest";
 import CarouselTest from "./components/carousel/CarouselTest";
 import RouterTest from "./components/router/RouterTest";
 import { PopoverTest } from "./hooks/PopoverTest";
@@ -8,7 +9,8 @@ function App() {
     <>
       {/* <RouterTest></RouterTest> */}
       {/* <CarouselTest></CarouselTest> */}
-      <PopoverTest></PopoverTest>
+      {/* <PopoverTest></PopoverTest> */}
+      <AccordionTest></AccordionTest>
     </>
   );
 }
