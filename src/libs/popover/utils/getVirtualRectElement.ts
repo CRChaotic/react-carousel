@@ -1,4 +1,5 @@
-import { RectElement } from "./RectElement";
+import { RectElement } from "../types";
+
 
 type GetVirtualRectElement = {
     x:number;

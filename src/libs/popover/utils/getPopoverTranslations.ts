@@ -1,4 +1,4 @@
-import { CrossAxis, MainAxis } from "./PopoverRect";
+import { CrossAxis, MainAxis } from "../types";
 
 const convertMainAxis = (mainAxis:MainAxis) => {
     if(mainAxis === "top" || mainAxis === "bottom"){

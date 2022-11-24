@@ -1,4 +1,5 @@
-import { MainAxis } from "./PopoverRect";
+import { MainAxis } from "../types";
+
 
 export const getOppsiteMainAxis = (axis:MainAxis):MainAxis => {
     let oppsiteMainAxis= "" as MainAxis; 

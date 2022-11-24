@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { computeStyles } from "../libs/popover/modifiers/computeStyles";
-import { offset } from "../libs/popover/modifiers/offset";
-import Popover, { ModifierConfig, Placement, RootBoundary } from "../libs/popover/Popover";
-import { RectElement } from "../libs/popover/utils/RectElement";
+import { computeStyles } from "../libs/popover/middlewares/computeStyles";
+import { offset } from "../libs/popover/middlewares/offset";
+import Popover from "../libs/popover/Popover";
+import { MiddlewareConfig, Placement, RootBoundary } from "../libs/popover/types";
+import { RectElement } from "../libs/popover/types";
 
 import useObjectDependency from "./useObjectDependency";
 
 interface UsePopoverProps{
-    modifiers?:ModifierConfig[];
+    modifiers?:MiddlewareConfig[];
     placements?:Placement[];
     rootBoundary?:RootBoundary;
     boundaries?: RectElement[];
@@ -17,7 +18,7 @@ function usePopover(
     element:HTMLElement|null, 
     target:RectElement|null, 
     {
-        modifiers = [{modifier:computeStyles}, {modifier:offset, options:{offset:[7, 0]}}], 
+        modifiers = [{middleware:computeStyles}, {middleware:offset, options:{offset:[7, 0]}}], 
         placements, 
         rootBoundary,
         boundaries,
@@ -25,7 +26,7 @@ function usePopover(
 ){
 
     const currentPlacements = useObjectDependency(placements);
-    const currentModifiers = useObjectDependency(modifiers);
+    const currentMiddlewares = useObjectDependency(modifiers);
     const [updateTime, setUpdateTime] = useState<number|null>(1);
 
     const popoverMemo = useMemo(() => {
@@ -41,8 +42,8 @@ function usePopover(
             }
         };
 
-        for(let config of currentModifiers??[]){
-            popoverState[config.modifier.name]= {};
+        for(let config of currentMiddlewares??[]){
+            popoverState[config.middleware.name]= {};
         }
 
         if(element && target && updateTime){
@@ -52,8 +53,8 @@ function usePopover(
             if(currentPlacements){
                 popover.placements = currentPlacements;
             }
-            if(currentModifiers){
-                popover.modifiers = currentModifiers;
+            if(currentMiddlewares){
+                popover.middlewares = currentMiddlewares;
             }
             if(boundaries){
                 popover.boundaries = boundaries;
@@ -62,18 +63,18 @@ function usePopover(
                 popover.rootBoundary = rootBoundary;
             }
             console.warn("update");
-            const {popoverRect, modifiersData} = popover.update();
+            const {popoverRect, middlewareData} = popover.update();
             popover = null;
     
             popoverState.popoverRect = popoverRect
-            for(let modifierName in modifiersData){
-                popoverState[modifierName] = modifiersData[modifierName];
+            for(let modifierName in middlewareData){
+                popoverState[modifierName] = middlewareData[modifierName];
             }
         }
 
         return popoverState;
 
-    }, [element, target, currentModifiers, currentPlacements, rootBoundary, boundaries, updateTime]);
+    }, [element, target, currentMiddlewares, currentPlacements, rootBoundary, boundaries, updateTime]);
 
 
     //dealing with changed orientation

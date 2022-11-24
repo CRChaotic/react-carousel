@@ -1,5 +1,5 @@
 import { getPopoverTranslations } from "./getPopoverTranslations";
-import { MainAxis, CrossAxis, PopoverRect } from "./PopoverRect";
+import { MainAxis, CrossAxis, PopoverRect } from "../types";
 
 type Props = {
     targetRect:DOMRect;

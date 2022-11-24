@@ -1,10 +1,10 @@
-import { Modifier } from "./Modifier";
+import { Middleware } from "../types";
 
 const regExp = /translate3d\(\s*(?<x>[^,\s]*)\s*,\s*(?<y>[^,\s]*)\s*,\s*(?<z>[^,\s]*)\s*\)/;
 
-const computeStyles:Modifier = {
+const computeStyles:Middleware = {
     name:"computeStyles",
-    after({popoverRect, element, modifiersData}){
+    after({popoverRect, element, middlewareData}){
        
         const elementTransform = element.style.transform;
         let replaced = false;
@@ -18,9 +18,10 @@ const computeStyles:Modifier = {
             transform = `translate3d(${popoverRect.translateX}px, ${popoverRect.translateY}px, 0px) ${elementTransform}`;
         }
 
-        modifiersData.transform = transform;
+        middlewareData.transform = transform;
     },
 }
 
 export {computeStyles};
+
 

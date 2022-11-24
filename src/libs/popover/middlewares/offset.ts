@@ -1,6 +1,6 @@
-import { Modifier } from "./Modifier";
+import { Middleware } from "../types";
 
-export const offset:Modifier =  {
+export const offset:Middleware =  {
     name:"offset",
     modify({popoverRect, options = {}}) {
 

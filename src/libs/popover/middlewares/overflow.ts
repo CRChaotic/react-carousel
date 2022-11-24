@@ -1,7 +1,7 @@
 import { getPaddedRect } from "../utils/getPaddedRect";
-import { Modifier } from "./Modifier";
+import { Middleware } from "../types";
 
-export const overflow:Modifier = {
+export const overflow:Middleware = {
     name:"overflow",
     modify({targetRect, boundaryRect, popoverRect, options = {}}) {
 

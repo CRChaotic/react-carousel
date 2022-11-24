@@ -1,5 +1,6 @@
+import { RectElement } from "../types";
 import { getOverlapRect } from "./getOverlap";
-import { RectElement } from "./RectElement";
+
 
 function getClippedBoundaryRect(boundaries:RectElement[]){
 

@@ -1,39 +1,23 @@
-import { Modifier } from "./modifiers/Modifier";
+import { MiddlewareConfig, MiddlewareData, Placement, RootBoundary } from "./types";
 import { createPopoverRect } from "./utils/createPopoverRect";
 import { getClippedBoundaryRect } from "./utils/getClippedBoundaryRect";
 import { getDocumentRect } from "./utils/getDocumentRect";
 import { getOverlapRect } from "./utils/getOverlap"
 import { getViewportRect } from "./utils/getViewportRect";
 import { getVirtualRectElement } from "./utils/getVirtualRectElement";
-import { PopoverRect } from "./utils/PopoverRect";
-import { RectElement } from "./utils/RectElement";
+import { PopoverRect, RectElement } from "./types";
 
 import "./styles/Popover.css";
-
-export type Placement = {
-    mainAxis: "bottom"|"top"|"right"|"left";
-    crossAxis: "start"|"middle"|"end";
-}
-
-export type RootBoundary = "viewport"|"document"
-export type ModifierConfig = {
-    modifier:Modifier;
-    options?:{[k:string|number]:any};
-}
-
-type ModifiersData = {
-    [k:string|number]:any;
-}
 
 class Popover {
 
     element:HTMLElement;
     target:RectElement;
     placements:Placement[];
-    modifiers: ModifierConfig[];
+    middlewares: MiddlewareConfig[];
     boundaries: RectElement[];
     rootBoundary: RootBoundary;
-    modifiersData: ModifiersData;
+    middlewareData: MiddlewareData;
 
     constructor(element:HTMLElement, target:RectElement){
         this.element = element;
@@ -44,10 +28,10 @@ class Popover {
             {mainAxis:"right", crossAxis:"middle"},
             {mainAxis:"left", crossAxis:"middle"},
         ];
-        this.modifiers = [];
+        this.middlewares = [];
         this.boundaries = [];
         this.rootBoundary = "viewport";
-        this.modifiersData = {};
+        this.middlewareData = {};
     }
  
     prioritize(popoverRects:PopoverRect[], boundaryRect:DOMRect){
@@ -101,18 +85,17 @@ class Popover {
         const targetRect = this.getTargetRect();
         const elementRect = this.getElementRect();
 
-        for(let {modifier, options} of this.modifiers){
+        for(let {middleware, options} of this.middlewares){
+            const name = middleware.name;
+            this.middlewareData[name] = {};
 
-            const name = modifier.name;
-            this.modifiersData[name] = {};
-
-            if(modifier.before){
-                modifier.before({
+            if(middleware.before){
+                middleware.before({
                     targetRect, 
                     boundaryRect,
                     elementRect,
                     options,
-                    modifiersData: this.modifiersData[name]
+                    middlewareData: this.middlewareData[name]
                 });
             }
             
@@ -126,18 +109,18 @@ class Popover {
             popoverRects.push(popoverRect);
 
             //ajusting
-            for(let {modifier, options} of this.modifiers){
+            for(let {middleware, options} of this.middlewares){
 
-                const name = modifier.name;
+                const name = middleware.name;
   
-                if(modifier.modify){
-                    modifier.modify({
+                if(middleware.modify){
+                    middleware.modify({
                         targetRect, 
                         boundaryRect,
                         elementRect,
-                        popoverRect, 
+                        popoverRect,
                         options, 
-                        modifiersData: this.modifiersData[name]
+                        middlewareData: this.middlewareData[name]
                     });
                 }
 
@@ -147,23 +130,23 @@ class Popover {
         //prioritizing
         const popoverRect = this.prioritize(popoverRects, boundaryRect);
 
-        for(let {modifier, options} of this.modifiers){
-            const name = modifier.name;
+        for(let {middleware, options} of this.middlewares){
+            const name = middleware.name;
 
-            if(modifier.after){
-                modifier.after({
+            if(middleware.after){
+                middleware.after({
                     targetRect, 
                     boundaryRect, 
                     popoverRect,
                     elementRect,
-                    element:this.element, 
+                    element:this.element,
                     options, 
-                    modifiersData: this.modifiersData[name]
+                    middlewareData: this.middlewareData[name]
                 });
             }
         }
 
-        return {popoverRect, modifiersData:this.modifiersData};
+        return {popoverRect, middlewareData:this.middlewareData};
     }
 }
 

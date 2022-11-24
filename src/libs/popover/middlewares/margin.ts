@@ -1,6 +1,6 @@
-import { Modifier } from "./Modifier";
+import { Middleware } from "../types";
 
-export const margin:Modifier = {
+export const margin:Middleware = {
     name:"margin",
     before({boundaryRect, options ={}}){
 

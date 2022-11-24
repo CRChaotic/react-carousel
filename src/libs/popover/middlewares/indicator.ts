@@ -1,15 +1,15 @@
 import { getPaddedRect } from "../utils/getPaddedRect";
 import { getOppsiteMainAxis } from "../utils/getOppsiteMainAxis";
 import { getPopoverTranslations } from "../utils/getPopoverTranslations";
-import { Modifier } from "./Modifier";
+import { Middleware } from "../types";
 
 const SELECTOR_INDICATOR = "[data-popover-indicator]";
 const CROSS_AXIS_PLACEMENT = "middle";
 
 
-export const indicator:Modifier = {
+export const indicator:Middleware = {
     name:"indicator",
-    after({targetRect, popoverRect, element:popElement, options={}, modifiersData}){
+    after({targetRect, popoverRect, element:popElement, options={}, middlewareData}){
 
         const {element:indicatorElement = popElement.querySelector(SELECTOR_INDICATOR)} = options;
         if(!(indicatorElement instanceof Element)){
@@ -41,13 +41,13 @@ export const indicator:Modifier = {
             crossAxis: CROSS_AXIS_PLACEMENT,
         });
 
-        modifiersData.styles = {transform:`translate3d(${translateX}px, ${translateY}px, 0)`};
-        modifiersData.attributes = {
+        middlewareData.styles = {transform:`translate3d(${translateX}px, ${translateY}px, 0)`};
+        middlewareData.attributes = {
             "data-main-axis":popoverRect.mainAxis, 
             "data-cross-axis":popoverRect.crossAxis,
             "data-popover-indicator":true
         };
-        modifiersData.rect = {translateX, translateY, x, y, width, height, left:x, top:y, right:x+width, bottom:y+height};
+        middlewareData.rect = {translateX, translateY, x, y, width, height, left:x, top:y, right:x+width, bottom:y+height};
     }
 }
 
