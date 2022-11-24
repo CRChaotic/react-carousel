@@ -6,12 +6,15 @@ import { Middleware } from "../types";
 const SELECTOR_INDICATOR = "[data-popover-indicator]";
 const CROSS_AXIS_PLACEMENT = "middle";
 
+export type IndicatorOptions = {
+    indicatorElement:HTMLElement;
+}
 
-export const indicator:Middleware = {
+export const indicator = (options?:IndicatorOptions):Middleware => ({
     name:"indicator",
-    after({targetRect, popoverRect, element:popElement, options={}, middlewareData}){
+    after({targetRect, popoverRect, element:popElement, middlewareData}){
 
-        const {element:indicatorElement = popElement.querySelector(SELECTOR_INDICATOR)} = options;
+        const indicatorElement = options?.indicatorElement??popElement.querySelector(SELECTOR_INDICATOR);
         if(!(indicatorElement instanceof Element)){
             throw new TypeError("Modifier<Indicator>: element expected Element");
         }
@@ -49,5 +52,5 @@ export const indicator:Middleware = {
         };
         middlewareData.rect = {translateX, translateY, x, y, width, height, left:x, top:y, right:x+width, bottom:y+height};
     }
-}
+});
 

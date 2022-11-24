@@ -1,5 +1,3 @@
-
-
 export type MainAxis = "top"|"bottom"|"left"|"right"
 export type CrossAxis = "start"|"middle"|"end"
 
@@ -33,8 +31,8 @@ export interface PopoverRect extends DOMRect{
 export interface Before {
     targetRect:DOMRect;
     boundaryRect:DOMRect;
-    elementRect:DOMRect; 
-    options?:{[k:string|number]:any};
+    elementRect:DOMRect;
+    element:HTMLElement;  
     middlewareData:{
         [k:string|number]:any;
     };
@@ -43,9 +41,9 @@ export interface Before {
 export interface Modify {
     targetRect:DOMRect;
     boundaryRect:DOMRect;
-    elementRect:DOMRect;  
+    elementRect:DOMRect;
+    element:HTMLElement;  
     popoverRect:PopoverRect;
-    options?:{[k:string|number]:any};
     middlewareData:{
         [k:string|number]:any;
     };
@@ -54,27 +52,19 @@ export interface Modify {
 export interface After {
     targetRect:DOMRect;
     boundaryRect:DOMRect;
-    elementRect:DOMRect;  
+    elementRect:DOMRect;
+    element:HTMLElement;  
     popoverRect:PopoverRect;
-    element:HTMLElement;
-    options?:{[k:string|number]:any};
     middlewareData:{
         [k:string|number]:any;
     };
 }
 
-
 export interface Middleware{
     name:string;
-    before?:({targetRect, elementRect, boundaryRect, middlewareData}:Before) => void;
-    modify?:({targetRect, elementRect, boundaryRect, popoverRect, middlewareData}:Modify) => void;
-    after?:({targetRect, elementRect, boundaryRect, popoverRect, element, middlewareData}:After) => void;
-}
-
-
-export type MiddlewareConfig = {
-    middleware: Middleware;
-    options?:{[k:string|number]:any};
+    before?:(context:Before) => void;
+    modify?:(context:Modify) => void;
+    after?:(context:After) => void;
 }
 
 export type MiddlewareData = {

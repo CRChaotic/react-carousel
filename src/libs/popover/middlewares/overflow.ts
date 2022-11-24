@@ -1,11 +1,15 @@
 import { getPaddedRect } from "../utils/getPaddedRect";
 import { Middleware } from "../types";
 
-export const overflow:Middleware = {
-    name:"overflow",
-    modify({targetRect, boundaryRect, popoverRect, options = {}}) {
+export type OverflowOptions = {
+    margin:number | {left:number; right:number; top:number; bottom:number;}
+}
 
-        let {margin = {left:0, right:0, top:0, bottom:0}} = options;
+export const overflow = (options?:OverflowOptions):Middleware => ({
+    name:"overflow",
+    modify({targetRect, boundaryRect, popoverRect}) {
+
+        let margin = options?.margin??0;
 
         if(typeof margin === "number"){
             margin = {
@@ -51,4 +55,4 @@ export const overflow:Middleware = {
             }
         }
     }
-}
+});

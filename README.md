@@ -1,5 +1,9 @@
 # Typescript rewrited react-components
 Typescript+React
+- [Carousel](#carousel-example)
+- [Router](#router-example)
+- [useCollapsible](#usecollapsible-hook-example)
+- [usePopover](#usepopover-hook-example)
 
 ## Carousel example
 ```JS
@@ -103,5 +107,73 @@ function CollapsibleTest(){
             </div>
         </>
     ); 
+}
+```
+
+## usePopover hook example
+```JS
+function PopoverTest(){
+
+    const [target, setTarget] = useState<RectElement|null>(null);
+    const [element, setElement] = useState<HTMLDivElement|null>(null);
+    const [show, setShow] = useState(false);
+
+    const modifiersData = usePopover(element, target, {
+        modifiers:[
+            {name:"indicator"},
+            {name:"computeStyles"},
+            {name:"overflow", options:{margin:-16}},
+            {name:"offset", options:{main:7, cross:0}}, 
+        ],
+    });
+
+    const handlePointerOver = () => {
+        setShow(true);
+    }
+
+    const handlePointerOut = () => {
+        setShow(false);
+    };
+
+    useEffect(() => {
+
+        const handleContextmenu = (e:MouseEvent) => {
+            e.preventDefault();
+            console.log(e);
+         
+            const ve = getVirtualRectElement({x:e.x, y:e.y, width:0, height:0});
+            setTarget(ve);
+            setShow(true);
+        };
+
+        window.addEventListener("contextmenu", handleContextmenu);
+
+        return () => window.removeEventListener("contextmenu", handleContextmenu);
+    }, []);
+
+
+    return (
+      <>
+        <div 
+            style={{border:"1px solid black", width:"300px", height:"300px"}} 
+            ref={setTarget} 
+            onPointerOver={handlePointerOver} 
+            onPointerOut={handlePointerOut}
+        >
+            target
+        </div>
+        {show &&
+            <div 
+                style={{ ...modifiersData.computeStyles}}  
+                ref={setElement} 
+                className="popover light"
+            >
+            tooltip or whatever popover
+            //make sure indicator element having data-popover-indicator and within popover element when using indicator modifier
+            <div style={{...modifiersData.indicator.styles}} {...modifiersData.indicator.attributes} data-popover-indicator></div>
+            </div>
+        }
+      </>
+    );
 }
 ```

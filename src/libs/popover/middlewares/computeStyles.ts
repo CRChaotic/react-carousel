@@ -2,7 +2,7 @@ import { Middleware } from "../types";
 
 const regExp = /translate3d\(\s*(?<x>[^,\s]*)\s*,\s*(?<y>[^,\s]*)\s*,\s*(?<z>[^,\s]*)\s*\)/;
 
-const computeStyles:Middleware = {
+const computeStyles = ():Middleware => ({
     name:"computeStyles",
     after({popoverRect, element, middlewareData}){
        
@@ -20,7 +20,7 @@ const computeStyles:Middleware = {
 
         middlewareData.transform = transform;
     },
-}
+});
 
 export {computeStyles};
 

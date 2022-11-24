@@ -1,13 +1,37 @@
 import { useEffect, useMemo, useState } from "react";
 import { computeStyles } from "../libs/popover/middlewares/computeStyles";
-import { offset } from "../libs/popover/middlewares/offset";
+import { indicator, IndicatorOptions } from "../libs/popover/middlewares/indicator";
+import { margin, MarginOptions } from "../libs/popover/middlewares/margin";
+import { offset, OffsetOptions } from "../libs/popover/middlewares/offset";
+import { overflow, OverflowOptions } from "../libs/popover/middlewares/overflow";
 import Popover from "../libs/popover/Popover";
-import { MiddlewareConfig, Placement, RootBoundary } from "../libs/popover/types";
+import { Placement, RootBoundary } from "../libs/popover/types";
 import { RectElement } from "../libs/popover/types";
-
 import useObjectDependency from "./useObjectDependency";
 
-interface UsePopoverProps{
+
+export type MiddlewareConfig = 
+{
+    name: "offset";
+    options:OffsetOptions;
+}
+|{
+    name:"computeStyles";
+}
+|{
+    name:"indicator";
+    options?:IndicatorOptions;
+}
+|{
+    name:"margin";
+    options:MarginOptions;
+}
+|{
+    name:"overflow";
+    options?:OverflowOptions
+}
+
+export interface UsePopoverProps{
     modifiers?:MiddlewareConfig[];
     placements?:Placement[];
     rootBoundary?:RootBoundary;
@@ -18,7 +42,11 @@ function usePopover(
     element:HTMLElement|null, 
     target:RectElement|null, 
     {
-        modifiers = [{middleware:computeStyles}, {middleware:offset, options:{offset:[7, 0]}}], 
+        modifiers = [
+            {name:"computeStyles"}, 
+            {name:"overflow"}, 
+            {name:"offset", options:{main:6, cross:0}}
+        ], 
         placements, 
         rootBoundary,
         boundaries,
@@ -26,7 +54,7 @@ function usePopover(
 ){
 
     const currentPlacements = useObjectDependency(placements);
-    const currentMiddlewares = useObjectDependency(modifiers);
+    const currentModifiers = useObjectDependency(modifiers);
     const [updateTime, setUpdateTime] = useState<number|null>(1);
 
     const popoverMemo = useMemo(() => {
@@ -42,8 +70,8 @@ function usePopover(
             }
         };
 
-        for(let config of currentMiddlewares??[]){
-            popoverState[config.middleware.name]= {};
+        for(let modifier of currentModifiers??[]){
+            popoverState[modifier.name]= {};
         }
 
         if(element && target && updateTime){
@@ -53,8 +81,27 @@ function usePopover(
             if(currentPlacements){
                 popover.placements = currentPlacements;
             }
-            if(currentMiddlewares){
-                popover.middlewares = currentMiddlewares;
+            if(currentModifiers){
+
+
+                popover.middlewares = currentModifiers.map((modifier) => {
+
+                    switch(modifier.name){
+                        case "computeStyles":
+                            return computeStyles();
+                        case "overflow":
+                            return overflow(modifier.options);
+                        case "indicator":
+                            return indicator(modifier.options);
+                        case "offset":
+                            return offset(modifier.options);
+                        case "margin":
+                            return margin(modifier.options);
+                        default:
+                            throw new TypeError("Modifier name expected one of computeStyles, overflow, indicator, offset, margin"); 
+                    }
+
+                });
             }
             if(boundaries){
                 popover.boundaries = boundaries;
@@ -74,8 +121,7 @@ function usePopover(
 
         return popoverState;
 
-    }, [element, target, currentMiddlewares, currentPlacements, rootBoundary, boundaries, updateTime]);
-
+    }, [element, target, currentModifiers, currentPlacements, rootBoundary, boundaries, updateTime]);
 
     //dealing with changed orientation
     useEffect(() => {

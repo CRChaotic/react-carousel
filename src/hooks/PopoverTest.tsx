@@ -1,8 +1,4 @@
 import { useState , useEffect} from "react";
-import { computeStyles } from "../libs/popover/middlewares/computeStyles";
-import { indicator } from "../libs/popover/middlewares/indicator";
-import { offset } from "../libs/popover/middlewares/offset";
-import { overflow } from "../libs/popover/middlewares/overflow";
 import { getVirtualRectElement } from "../libs/popover/utils/getVirtualRectElement";
 import { RectElement } from "../libs/popover/types";
 import usePopover from "./usePopover";
@@ -14,13 +10,12 @@ export function PopoverTest(){
     const [element, setElement] = useState<HTMLDivElement|null>(null);
     const [show, setShow] = useState(false);
 
-
     const modifiersData = usePopover(element, target, {
         modifiers:[
-            {middleware:indicator},
-            {middleware:computeStyles},
-            {middleware:overflow, options:{margin:-16}},
-            {middleware:offset, options:{offset:[7, 0]}}, 
+            {name:"indicator"},
+            {name:"computeStyles"},
+            {name:"overflow", options:{margin:-16}},
+            {name:"offset", options:{main:7, cross:0}}, 
         ],
     });
 

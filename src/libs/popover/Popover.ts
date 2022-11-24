@@ -1,4 +1,4 @@
-import { MiddlewareConfig, MiddlewareData, Placement, RootBoundary } from "./types";
+import { Middleware, MiddlewareData, Placement, RootBoundary } from "./types";
 import { createPopoverRect } from "./utils/createPopoverRect";
 import { getClippedBoundaryRect } from "./utils/getClippedBoundaryRect";
 import { getDocumentRect } from "./utils/getDocumentRect";
@@ -14,7 +14,7 @@ class Popover {
     element:HTMLElement;
     target:RectElement;
     placements:Placement[];
-    middlewares: MiddlewareConfig[];
+    middlewares: Middleware[];
     boundaries: RectElement[];
     rootBoundary: RootBoundary;
     middlewareData: MiddlewareData;
@@ -85,7 +85,7 @@ class Popover {
         const targetRect = this.getTargetRect();
         const elementRect = this.getElementRect();
 
-        for(let {middleware, options} of this.middlewares){
+        for(let middleware of this.middlewares){
             const name = middleware.name;
             this.middlewareData[name] = {};
 
@@ -94,7 +94,7 @@ class Popover {
                     targetRect, 
                     boundaryRect,
                     elementRect,
-                    options,
+                    element:this.element,
                     middlewareData: this.middlewareData[name]
                 });
             }
@@ -109,7 +109,7 @@ class Popover {
             popoverRects.push(popoverRect);
 
             //ajusting
-            for(let {middleware, options} of this.middlewares){
+            for(let middleware of this.middlewares){
 
                 const name = middleware.name;
   
@@ -118,8 +118,8 @@ class Popover {
                         targetRect, 
                         boundaryRect,
                         elementRect,
-                        popoverRect,
-                        options, 
+                        element:this.element,
+                        popoverRect, 
                         middlewareData: this.middlewareData[name]
                     });
                 }
@@ -130,7 +130,7 @@ class Popover {
         //prioritizing
         const popoverRect = this.prioritize(popoverRects, boundaryRect);
 
-        for(let {middleware, options} of this.middlewares){
+        for(let middleware of this.middlewares){
             const name = middleware.name;
 
             if(middleware.after){
@@ -140,7 +140,6 @@ class Popover {
                     popoverRect,
                     elementRect,
                     element:this.element,
-                    options, 
                     middlewareData: this.middlewareData[name]
                 });
             }

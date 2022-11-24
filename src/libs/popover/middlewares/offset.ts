@@ -1,31 +1,36 @@
 import { Middleware } from "../types";
 
-export const offset:Middleware =  {
-    name:"offset",
-    modify({popoverRect, options = {}}) {
+export type OffsetOptions = {
+    main:number;
+    cross:number;
+}
 
-        const {offset=[0, 0]} = options;
+export const offset = (options:OffsetOptions):Middleware => ({
+    name:"offset",
+    modify({popoverRect}) {
+
+        const {main, cross} = options;
         
         switch(popoverRect.mainAxis){
             case "left":
-                popoverRect.x -= offset[0];
-                popoverRect.y += offset[1];
+                popoverRect.x -= main;
+                popoverRect.y += cross;
                 break;
             case "right":
-                popoverRect.x += offset[0];
-                popoverRect.y += offset[1];
+                popoverRect.x += main;
+                popoverRect.y += cross;
                 break;
             case "top":
-                popoverRect.y -= offset[0];
-                popoverRect.x += offset[1];
+                popoverRect.y -= main;
+                popoverRect.x += cross;
                 break;
             case "bottom":
-                popoverRect.y += offset[0];
-                popoverRect.x += offset[1];
+                popoverRect.y += main;
+                popoverRect.x += cross;
                 break;
             default:
                 throw new TypeError("Modifier<offset>: mainAxis expected one of left,right,top,bottom");
         }
 
     }
-}
+});
