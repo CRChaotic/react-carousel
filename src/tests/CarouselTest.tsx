@@ -1,7 +1,7 @@
 import { useCallback } from "react";
-import Carousel from "./Carousel";
-import CarouselButton from "./CarouselButton";
-import CarouselIndicator from "./CarouselIndicator";
+import Carousel from "../components/carousel/Carousel";
+import CarouselButton from "../components/carousel/CarouselButton";
+import CarouselIndicator from "../components/carousel/CarouselIndicator";
 
 
 const items = [
@@ -31,7 +31,7 @@ function CarouselTest(){
         >
             <CarouselButton placement="left"></CarouselButton>
             <CarouselButton placement="right"></CarouselButton>
-            <CarouselIndicator></CarouselIndicator>
+            <CarouselIndicator/>
         </Carousel>
     );
 }

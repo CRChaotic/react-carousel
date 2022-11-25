@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import Link from "./Link";
-import Route from "./Route";
-import Router, { RouterContext } from "./Router";
+import Link from "../components/router/Link";
+import Route from "../components/router/Route";
+import Router, { RouterContext } from "../components/router/Router";
 
 
 function Thoughts(){

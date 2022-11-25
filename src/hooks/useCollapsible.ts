@@ -1,53 +1,47 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
-interface useCollapsibleProps{
+export interface useCollapsibleProps{
     show:boolean;
     axis?:"vertical"|"horizontal";
     duration?:number;
+}
+
+type useCollapsibleState<T> = {
+    ref:React.Dispatch<React.SetStateAction<T|null>>;
+    style:React.CSSProperties;
 }
 
 function useCollapsible<T extends HTMLElement>({
     show = false, 
     axis = "vertical", 
     duration = 300
-}:useCollapsibleProps):{ref:React.RefObject<T>; style:React.CSSProperties} {
+}:useCollapsibleProps):useCollapsibleState<T> {
 
-    const ref = useRef<T>(null);
-    const [size, setSize] = useState(0);
+    const [collapsible, setCollapsible] = useState<T|null>(null);
+    let size = 0;
 
-    useEffect(() => {
-        const collapsible = ref.current;
-
-        if(!(collapsible && show)){
-            setSize(0);
-           return;
-        }
-
-        let size = 0;
+    if(collapsible && show){
         if(axis === "vertical"){
             size = collapsible.scrollHeight;
         }else if(axis === "horizontal"){
             size = collapsible.scrollWidth;
         }
-
-        setSize(size);
-
-    },[show, axis]);
+    }
 
     let dimension = "";
     if(axis === "vertical"){
-        dimension = "maxHeight";
+        dimension = "height";
     }else if(axis === "horizontal"){
-        dimension = "maxWidth";
+        dimension = "width";
     }
 
     return {
-        ref,
+        ref:setCollapsible,
         style:{
             [dimension]: size + "px",
             overflow: "hidden",
             transitionDuration: duration +"ms",
-            transitionProperty:"max-width, max-height",
+            transitionProperty:"width, height",
             padding:0,
             border:"none"
         }

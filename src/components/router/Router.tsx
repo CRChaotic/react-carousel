@@ -11,6 +11,7 @@ interface CurrentRoute{
     param:{
         [k:string]:string
     };
+    hash:string;
 }
 
 interface RouterContextInterface{
@@ -29,18 +30,18 @@ export interface RouterProps{
 function Router({children}:RouterProps){
 
     const pathsRef = useRef(new Map<string, RegExp>());
-    const [currentRoute, setCurrentRoute] = useState<CurrentRoute>({path:"", var:{}, param:{}});
+    const [currentRoute, setCurrentRoute] = useState<CurrentRoute>({path:"", var:{}, param:{}, hash:""});
     
     const changePath = (rawPath:string, changeHistory = true) => {
 
         const url = new URL(rawPath);
         const path = url.pathname;
         const currentParams = Object.fromEntries(url.searchParams.entries());
+        const currentHash = url.hash;
 
         if(changeHistory){
             window.history.pushState({path:rawPath}, "", rawPath);
         }
-
 
         let currentPath = "*";
         let currentVariables = {};
@@ -68,9 +69,9 @@ function Router({children}:RouterProps){
            console.warn("URL is invaild:"+rawPath);
         }
 
-        console.log("current:", {path:currentPath, var:currentVariables, param:currentParams});
+        console.log("current:", {path:currentPath, var:currentVariables, param:currentParams, hash:currentHash});
 
-        setCurrentRoute({path:currentPath, var:currentVariables, param:currentParams});
+        setCurrentRoute({path:currentPath, var:currentVariables, param:currentParams, hash:currentHash});
     };
 
 

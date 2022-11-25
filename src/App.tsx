@@ -1,7 +1,7 @@
-import { AccordionTest } from "./components/accordion/AccordionTest";
-import CarouselTest from "./components/carousel/CarouselTest";
-import RouterTest from "./components/router/RouterTest";
-import { PopoverTest } from "./hooks/PopoverTest";
+import { AccordionTest } from "./tests/AccordionTest";
+import CarouselTest from "./tests/CarouselTest";
+import { CollapsibleTest } from "./tests/CollapsibleTest";
+import RouterTest from "./tests/RouterTest";
 
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
       {/* <RouterTest></RouterTest> */}
       {/* <CarouselTest></CarouselTest> */}
       {/* <PopoverTest></PopoverTest> */}
+      {/* <CollapsibleTest></CollapsibleTest> */}
       <AccordionTest></AccordionTest>
     </>
   );

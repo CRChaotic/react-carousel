@@ -35,7 +35,7 @@ function CarouselTest(){
         >
             <CarouselButton placement="left"></CarouselButton>
             <CarouselButton placement="right"></CarouselButton>
-            <CarouselIndicator></CarouselIndicator>
+            <CarouselIndicator/>
         </Carousel>
     );
 }

@@ -1,7 +1,7 @@
-import Accordion from "./Accordion";
-import AccordionBody from "./AccordionBody";
-import AccordionHeader from "./AccordionHeader";
-import AccordionItem from "./AccordionItem";
+import Accordion from "../components/accordion/Accordion";
+import AccordionBody from "../components/accordion/AccordionBody";
+import AccordionHeader from "../components/accordion/AccordionHeader";
+import AccordionItem from "../components/accordion/AccordionItem";
 
 
 function AccordionTest(){

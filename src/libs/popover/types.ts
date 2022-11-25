@@ -28,14 +28,16 @@ export interface PopoverRect extends DOMRect{
     readonly crossAxis:CrossAxis;
 }
 
+export type MiddlewareData = {
+    [k:string|number]:any;
+}
+
 export interface Before {
     targetRect:DOMRect;
     boundaryRect:DOMRect;
     elementRect:DOMRect;
     element:HTMLElement;  
-    middlewareData:{
-        [k:string|number]:any;
-    };
+    middlewareData:MiddlewareData;
 }
 
 export interface Modify {
@@ -44,9 +46,7 @@ export interface Modify {
     elementRect:DOMRect;
     element:HTMLElement;  
     popoverRect:PopoverRect;
-    middlewareData:{
-        [k:string|number]:any;
-    };
+    middlewareData:MiddlewareData;
 }
 
 export interface After {
@@ -55,9 +55,7 @@ export interface After {
     elementRect:DOMRect;
     element:HTMLElement;  
     popoverRect:PopoverRect;
-    middlewareData:{
-        [k:string|number]:any;
-    };
+    middlewareData:MiddlewareData;
 }
 
 export interface Middleware{
@@ -65,8 +63,4 @@ export interface Middleware{
     before?:(context:Before) => void;
     modify?:(context:Modify) => void;
     after?:(context:After) => void;
-}
-
-export type MiddlewareData = {
-    [k:string|number]:any;
 }
