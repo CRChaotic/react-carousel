@@ -1,7 +1,9 @@
 import { AccordionTest } from "./tests/AccordionTest";
 import CarouselTest from "./tests/CarouselTest";
-import { CollapsibleTest } from "./tests/CollapsibleTest";
+import { UseCollapsibleTest } from "./tests/UseCollapsibleTest";
 import RouterTest from "./tests/RouterTest";
+import { UsePopoverTest } from "./tests/UsePopoverTest";
+import { UseScrollspyTest } from "./tests/UseScrollspyTest";
 
 
 function App() {
@@ -9,9 +11,10 @@ function App() {
     <>
       {/* <RouterTest></RouterTest> */}
       {/* <CarouselTest></CarouselTest> */}
-      {/* <PopoverTest></PopoverTest> */}
-      {/* <CollapsibleTest></CollapsibleTest> */}
-      <AccordionTest></AccordionTest>
+      {/* <UsePopoverTest></UsePopoverTest> */}
+      {/* <UseCollapsibleTest></UseCollapsibleTest> */}
+      {/* <AccordionTest></AccordionTest> */}
+      <UseScrollspyTest></UseScrollspyTest>
     </>
   );
 }

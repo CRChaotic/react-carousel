@@ -11,14 +11,15 @@ function Thoughts(){
     return (
         <>
             <h1>
-                Thoughts, id:{currentRoute.var.id}<br/>
-                by {currentRoute.var.name}<br/>
+                Thoughts, id:{currentRoute.vars.id}<br/>
+                by {currentRoute.vars.name}<br/>
             </h1>
             <p>
-                search:{currentRoute.param.topic}<br/>
-                msg:{currentRoute.param.msg}
+                search:{currentRoute.params.topic}<br/>
+                msg:{currentRoute.params.msg}<br/>
+                hash:{currentRoute.hash}<br/>
             </p>
-            <Link href="/thoughts/^[">thoughts</Link><br/>
+            <Link href="/">home</Link><br/>
         </>
     );
 }
@@ -29,20 +30,19 @@ function Test(){
         <Router>
             <Route path="/">
                 <h1>Home</h1>
-                <Link href="/math?x=1">math</Link><br/>
+                <Link href="/math">math</Link><br/>
                 <Link href="/thoughts/0-Morty/suffix">thoughts</Link><br/>
-                <Link href="/thoughts/8-Rick/suffix?topic=computer&msg=ayo#tag">search thoughts</Link><br/>
+                <Link href="/thoughts/1&2-Rick/suffix?topic=computer&msg=ayo#tag">search thoughts</Link><br/>
             </Route>
             <Route path="/math">
                 <h1>Math</h1>
-                <Link href="/math">math</Link><br/>
-                <Link href="/thoughts/%#1">thoughts</Link><br/>
+                <Link href="/">home</Link><br/>
             </Route>
             <Route path="/thoughts/{id}-{name}/suffix">
                 <Thoughts/>
             </Route>
             <Route path="*">
-                <h1>Whoops</h1>
+                <h1>Whoops nothing's here</h1>
             </Route>
         </Router>
     );

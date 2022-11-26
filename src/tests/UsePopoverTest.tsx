@@ -4,7 +4,7 @@ import { RectElement } from "../libs/popover/types";
 import usePopover from "../hooks/usePopover";
 
 
-export function PopoverTest(){
+export function UsePopoverTest(){
 
     const [target, setTarget] = useState<RectElement|null>(null);
     const [element, setElement] = useState<HTMLDivElement|null>(null);
@@ -27,6 +27,7 @@ export function PopoverTest(){
         setShow(false);
     };
 
+    //simulate virtual element for context menu
     useEffect(() => {
 
         const handleContextmenu = (e:MouseEvent) => {

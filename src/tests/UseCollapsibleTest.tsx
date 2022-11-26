@@ -1,15 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useCollapsible from "../hooks/useCollapsible";
 
-function CollapsibleTest(){
+function UseCollapsibleTest(){
 
     const [show, setShow] = useState(false);
     const props = useCollapsible<HTMLDivElement>({show});
 
-    useEffect(() => {
-        console.log("effect");
-    });
-    
     return (
     <>
         <div onClick={() => setShow(!show)} style={{backgroundColor:"rgb(240, 245, 240)", padding:"5px", cursor:"pointer"}}>
@@ -28,4 +24,4 @@ function CollapsibleTest(){
     );
 }
 
-export {CollapsibleTest};
+export { UseCollapsibleTest };

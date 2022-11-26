@@ -5,10 +5,10 @@ const PathVariableRegExp = /{(\w+)}/g;
 
 interface CurrentRoute{
     path:string;
-    var:{
+    vars:{
         [k:string]:string
     };
-    param:{
+    params:{
         [k:string]:string
     };
     hash:string;
@@ -30,7 +30,7 @@ export interface RouterProps{
 function Router({children}:RouterProps){
 
     const pathsRef = useRef(new Map<string, RegExp>());
-    const [currentRoute, setCurrentRoute] = useState<CurrentRoute>({path:"", var:{}, param:{}, hash:""});
+    const [currentRoute, setCurrentRoute] = useState<CurrentRoute>({path:"", vars:{}, params:{}, hash:""});
     
     const changePath = (rawPath:string, changeHistory = true) => {
 
@@ -71,7 +71,7 @@ function Router({children}:RouterProps){
 
         console.log("current:", {path:currentPath, var:currentVariables, param:currentParams, hash:currentHash});
 
-        setCurrentRoute({path:currentPath, var:currentVariables, param:currentParams, hash:currentHash});
+        setCurrentRoute({path:currentPath, vars:currentVariables, params:currentParams, hash:currentHash});
     };
 
 
