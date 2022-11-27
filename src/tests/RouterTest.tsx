@@ -32,7 +32,7 @@ function Test(){
                 <h1>Home</h1>
                 <Link href="/math">math</Link><br/>
                 <Link href="/thoughts/0-Morty/suffix">thoughts</Link><br/>
-                <Link href="/thoughts/1&2-Rick/suffix?topic=computer&msg=ayo#tag">search thoughts</Link><br/>
+                <Link href="/thoughts/^2-Rick/suffix?topic=computer&msg=ayo#tag">search thoughts</Link><br/>
             </Route>
             <Route path="/math">
                 <h1>Math</h1>

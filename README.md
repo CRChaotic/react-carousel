@@ -1,4 +1,4 @@
-# Typescript rewrited react-components
+# Typescript with react-components
 Typescript+React
 - [Carousel](#carousel-example)
 - [Accordion](#accordion-example)

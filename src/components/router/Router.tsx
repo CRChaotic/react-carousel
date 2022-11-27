@@ -93,9 +93,7 @@ function Router({children}:RouterProps){
 
     const addPath = (rawPath:string) => {
         //transform path to regular expression
-        const pathRegExp = rawPath.replace(PathVariableRegExp, (match, name) => {
-            return `(?<${name}>[^/]+)`;
-        });
+        const pathRegExp = rawPath.replace(PathVariableRegExp, "(?<$1>[^/]+)");
 
         pathsRef.current.set(rawPath, new RegExp(`^${pathRegExp === "*" ? "\\*":pathRegExp}$`));
     };
